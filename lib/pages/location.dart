@@ -23,7 +23,7 @@ class _LocationState extends State<Location> {
     WorldTime(url: 'Asia/Bangkok', location: 'Bangkok', flag: 'thailand.png'),
     WorldTime(url: 'Asia/Colombo', location: 'Colombo', flag: 'srilanka.png'),
     WorldTime(url: 'Asia/Damascus', location: 'Damascus', flag: 'syria.png'),
-    WorldTime(url: 'Asia/Hong_Kong', location: 'Hong_Kong', flag: 'japan.png'),
+    WorldTime(url: 'Asia/Hong_Kong', location: 'Hong_Kong', flag: 'china.png'),
     WorldTime(url: 'Asia/Jerusalem', location: 'Jerusalem', flag: 'israel.png'),
     WorldTime(url: 'Asia/Karachi', location: 'Karachi', flag: 'pakistan.png'),
     WorldTime(url: 'Asia/Kathmandu', location: 'Kathmandu', flag: 'nepal.png'),
@@ -33,7 +33,7 @@ class _LocationState extends State<Location> {
     WorldTime(url: 'Asia/Pyongyang', location: 'Pyongyang', flag: 'northkorea.png'),
     WorldTime(url: 'Asia/Riyadh', location: 'Riyadh', flag: 'saudi.png'),
     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
-    WorldTime(url: 'Asia/Tokoyo', location: 'Tokoyo', flag: 'china.png'),
+    WorldTime(url: 'Asia/Tokoyo', location: 'Tokoyo', flag: 'japan.png'),
     WorldTime(url: 'Australia/Melbourne', location:'Melbourne', flag:'australia.png'),
     WorldTime(url: 'Australia/Sydney', location:'Sydney', flag:'australia.png'),
     WorldTime(url: 'Australia/Perth', location:'Perth', flag:'australia.png'),
@@ -52,6 +52,18 @@ class _LocationState extends State<Location> {
 
 
   ];
+
+  void updateTime(index) async {
+   WorldTime instance = locations[index];
+   await instance.getTime();
+   Navigator.pop(context,{
+     'location': instance.location,
+     'flag': instance.flag,
+     'time': instance.time,
+     'Daytime': instance.Daytime
+
+   });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +84,7 @@ class _LocationState extends State<Location> {
             child: Card(
             child: ListTile(
               onTap: () {
-                print(locations[index].location);
+                updateTime(index);
               },
               title: Text(locations[index].location,
               style: TextStyle(
